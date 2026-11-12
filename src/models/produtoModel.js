@@ -39,4 +39,6 @@ const produtoModel = {
 }
 module.export = produtoModel;
 
+// models são modelos de armazenamento de dados
+
 

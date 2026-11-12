@@ -1,1 +1,9 @@
-[]
+[
+{
+    "codigo": 101,
+    "nome": "SABONETE",
+    "quantidade": 5,
+    "preco": 39.95
+
+}
+]

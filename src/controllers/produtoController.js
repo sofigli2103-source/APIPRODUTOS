@@ -24,7 +24,8 @@ const produtoController = {
         preco: valorPreco,
         total: valorTotal,
         criadoEm: new Date().toISOString()
-    }
+        }
+    
 
     // chama  o model para persistir no arquivo json
 
@@ -38,24 +39,27 @@ const produtoController = {
         mensagem: "produto cadastrado com sucesso!",
         produto : produtoSalvo
     })
-
-    const produtoController = {
-        criarProduto: ( req, res) =>{
-            const produtos = produtoModel.buscarTodos();
-            return res.json({
-                sucesso:true,
-                total: produtos.length,
-                produtos
+},
+        
+            listarProdutos: (req, res) =>{
+                const produtos = produtoModel.buscarTodos();
+                return res.json({
+                    sucesso : true,
+                    total: produtos.length,
+                    produtos
             })
+            
         }
-    }
+             }
+                      module.exports=produtoController;
+
+                      
+    
 
 
 
 
-
-    }
+    
 
         
-    }
-}
+        
