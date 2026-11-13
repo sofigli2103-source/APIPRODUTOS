@@ -4,7 +4,7 @@ const produtoController = {
     criarProduto: (req, res) => {
             const { codigo,nome,qtde, preco} = req.body;
             //validação simples dos campos obrigatórios
-            if(!codigo || !nome ||!qtde ||!preco){
+            if(!codigo || !nome ||!qtde ||!preco){ // dados a serem preenchidos mo postman (req.body)
                 return res.status(400).json({
                     sucesso: false,
                     mensagem:" todos os campos (codigo,nome.qtde e preco) são obrigatórios!"
@@ -29,7 +29,7 @@ const produtoController = {
 
     // chama  o model para persistir no arquivo json
 
-    const profutoSalvo = produtoModel.salvar(novoProduto);
+    const produtoSalvo = produtoModel.salvar(novoProduto);
 
 
     // retorna a resposta  HTTP 201 (created)
