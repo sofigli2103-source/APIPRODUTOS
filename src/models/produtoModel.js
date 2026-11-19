@@ -1,44 +1,6 @@
-// file system = arquivo
-const fs = require ('fs');
-// path = caminho
-const path = require ('path');
+const prisma = require('../../database/prisma'); // o PRISMA é o nosso banco
 
-// 1. define o caminho do arquivbo
-const arquivoProdutos = path.join(__dirname,'..','..', 'database', 'produtos.json');
+// Expõe os métodos do Prisma (findMany, create, update, delete, etc.)
+const ProdutoModel = prisma.produto;
 
-const produtoModel = { 
-    //1. le todos os produtos do arquivo json
-    buscarTodos: () =>{
-
-    
-        if(!fs.readFileSync(arquivoProdutos, 'utf-8')) {
-            return [];
-
-        }
-        const conteudo = (fs.readFileSync(arquivoProdutos, 'utf-8'));
-        return conteudo.trim() ? JSON.parse (conteudo) : [];
-
-
-    },
-    //2. salvaum novo pro
-
-    salvar : (novoProduto) =>{
-            const listaProdutos = produtoModel.buscarTodos();
-
-    //3. adicionar o novo profuto na lista 
-    listaProdutos.push(novoProduto);
-    //4. salvar o rquivo
-    fs.writeFileSync(arquivoProdutos, JSON.stringify, null, 2)
-
-
-    return novoProduto 
- 
-
-
-    }
-}
-module.export = produtoModel;
-
-// models são modelos de armazenamento de dados
-
-
+module.exports = ProdutoModel;

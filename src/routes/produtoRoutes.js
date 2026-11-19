@@ -4,7 +4,8 @@ const produtoController = require ('../controllers/produtoController') // o ../ 
 
 // rota HOST
 // produtos/novo
-router.post('/',produtoController.criarProduto);
+router.post('/novo',produtoController.criarProduto);
+router.get('/listar',produtoController.listarProdutos);
 
 module.exports= router;
 

@@ -1,10 +1,10 @@
 const produtoModel = require ('../models/produtoModel');
 
 const produtoController = {
-    criarProduto: (req, res) => {
-            const { codigo,nome,qtde, preco} = req.body;
+    criarProduto: async (req, res) => {
+            const { codigo,nome,quantidade, preco} = req.body;
             //validação simples dos campos obrigatórios
-            if(!codigo || !nome ||!qtde ||!preco){ // dados a serem preenchidos mo postman (req.body)
+            if(!codigo || !nome ||!quantidade ||!preco){ // dados a serem preenchidos mo postman (req.body)
                 return res.status(400).json({
                     sucesso: false,
                     mensagem:" todos os campos (codigo,nome.qtde e preco) são obrigatórios!"
@@ -12,46 +12,51 @@ const produtoController = {
             }
 
             //transformar e calcular dados
-            const nomeMaiusculo = String(nome). toUpperCase();
-            const quantidade = Number (qtde);
-            const valorPreco = Number (preco);
+            const nomeMaiusculo = String(nome).toUpperCase();
+            const qtde = Number(quantidade);
+            const valorPreco = Number(preco);
             const valorTotal = quantidade * valorPreco;
 
-        const novoProduto = {
+        const novoProduto = await produtoModel.create({
+        data: { //json
         codigo,
         nome: nomeMaiusculo,
-        quantidade: quantidade,
+        quantidade: qtde,
         preco: valorPreco,
-        total: valorTotal,
-        criadoEm: new Date().toISOString()
+        total: valorTotal
         }
+        });
     
 
-    // chama  o model para persistir no arquivo json
-
-    const produtoSalvo = produtoModel.salvar(novoProduto);
+    
 
 
     // retorna a resposta  HTTP 201 (created)
 
     return res.status(201).json({
         sucesso: true,
-        mensagem: "produto cadastrado com sucesso!",
-        produto : produtoSalvo
+        mensagem: "produto cadastrado com sucesso  no MySQL!",
+        produto : novoProduto
     })
 },
         
-            listarProdutos: (req, res) =>{
-                const produtos = produtoModel.buscarTodos();
+            listarProdutos: async (req, res) =>{
+                try {
+                const produtos = await produtoModel.findMany();
                 return res.json({
                     sucesso : true,
                     total: produtos.length,
                     produtos
             })
-            
+
+        } catch (error) { 
+            return res.status(500).json({sucesso: false,erro: error.message})
         }
-             }
-                      module.exports=produtoController;
+        }
+};
+                     
+        
+module.exports=produtoController;
 
                       
     
