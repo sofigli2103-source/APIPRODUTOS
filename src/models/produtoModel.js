@@ -4,3 +4,4 @@ const prisma = require('../../database/prisma'); // o PRISMA é o nosso banco
 const ProdutoModel = prisma.produto;
 
 module.exports = ProdutoModel;
+
