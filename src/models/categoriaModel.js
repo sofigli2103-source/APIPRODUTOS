@@ -1,6 +1,5 @@
-const prisma = require('../../database/prisma'); // o PRISMA é o nosso banco[cite: 2]
+const prisma = require('../../database/prisma');
 
-// Expõe os métodos do Prisma (findMany, create, update, delete, etc.)[cite: 2]
 const CategoriaModel = prisma.categoria;
 
 module.exports = CategoriaModel;
