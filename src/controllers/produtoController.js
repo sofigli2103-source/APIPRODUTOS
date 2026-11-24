@@ -47,16 +47,88 @@ const produtoController = {
                     sucesso : true,
                     total: produtos.length,
                     produtos
-            })
+            });
 
         } catch (error) { 
-            return res.status(500).json({sucesso: false,erro: error.message})
-        }
-        }
-};
-                     
+            return res.status(500).json({
+                sucesso: false,
+                erro: error.message
+            });
         
-module.exports=produtoController;
+        }
+},
+
+atualizarProduto: async (req, res) => {
+    try {
+        
+        const { codigo } = req.params; 
+        const { nome, quantidade, preco } = req.body;
+
+       
+        if (!nome || !quantidade || !preco) {
+            return res.status(400).json({
+                sucesso: false,
+                mensagem: "Todos os campos (nome, quantidade e preco) são obrigatórios!"
+            });
+        }
+
+        const nomeMaiusculo = String(nome).toUpperCase();
+        const qtde = Number(quantidade);
+        const valorPreco = Number(preco);
+        const valorTotal = qtde * valorPreco;
+
+        const produtoAtualizado = await produtoModel.update({
+            where: {
+               
+                codigo: Number(codigo) 
+            },
+            data: {
+                nome: nomeMaiusculo,
+                quantidade: qtde,
+                preco: valorPreco,
+                total: valorTotal
+            }
+        });
+
+        return res.status(200).json({
+            sucesso: true,
+            mensagem: "Produto atualizado com sucesso!",
+            produto: produtoAtualizado
+        });
+    } catch (error) {
+        return res.status(500).json({
+            sucesso: false,
+            erro: error.message
+        });
+    }
+},  
+                     
+      
+
+
+    deletarProduto: async (req, res) => {
+    try {
+        const { codigo } = req.params;
+
+        const produtoDeletado = await produtoModel.delete({
+            where: {
+                codigo: Number(codigo) 
+            }
+        });
+
+        return res.status(200).json({
+            sucesso: true,
+            mensagem: "Produto seu produto foi excluido com sucesso!",
+            produto: produtoDeletado
+        });
+    } catch (error) {
+        return res.status(500).json({
+            sucesso: false,
+            erro: error.message
+        });
+    }
+}
+};
 
                       
     
