@@ -1,5 +1,5 @@
 require('dotenv').config();
-const express= require('express');
+const express = require('express');
 const routes = require('./routes'); // importa automaticamente o routes /index.js
 const prisma = require('../database/prisma');
 const app = express();

@@ -23,9 +23,14 @@ const categoriaController = {
         }
       });
 
-      return res.status(201).json({sucesso: true, categoria: novaCategoria});
+      return res.status(201).json({
+        sucesso: true, categoria: novaCategoria
+    });
     }catch (error) {
-      return res.status(500).json({sucesso: false,erro: error.message });
+      return res.status(500).json({
+        sucesso: false,
+        erro: error.message
+    });
     }
     
   },
@@ -33,11 +38,17 @@ const categoriaController = {
   listarCategoria: async (req, res) => {
     try {
       const categoria= await CategoriaModel.findMany();
-      return res.status(200).json({sucesso: true, categoria});
+      return res.status(200).json({
+        sucesso: true,
+         categoria
+        });
     }catch (error) {
-      return res.status(500).json({sucesso: false, erro: error.message});
+      return res.status(500).json({
+        sucesso: false, 
+        erro: error.message
+    });
     }
-  }
+  
 },
 
 atualizarCategoria: async (req, res) => {

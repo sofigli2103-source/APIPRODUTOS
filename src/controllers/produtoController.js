@@ -131,7 +131,7 @@ atualizarProduto: async (req, res) => {
 };
 
                       
-    
+module.exports = produtoController;
 
 
 
