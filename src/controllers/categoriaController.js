@@ -53,7 +53,7 @@ const categoriaController = {
 
 atualizarCategoria: async (req, res) => {
         try {
-            const { codigo } = req.params;
+            const { id } = req.params;
             const { descricao } = req.body;
 
             if (!descricao) {
@@ -63,12 +63,12 @@ atualizarCategoria: async (req, res) => {
                 });
             }
 
-            const codigoConvertido = Number(codigo); 
+            const idConvertido = Number(id); 
             const descricaoMaiuscula = String(descricao).toUpperCase();
 
             const categoriaAtualizada = await CategoriaModel.update({
                 where: {
-                    codigo: codigoConvertido
+                    id: idConvertido
                 },
                 data: {
                     descricao: descricaoMaiuscula
@@ -90,11 +90,11 @@ atualizarCategoria: async (req, res) => {
 
     deletarCategoria: async (req, res) => {
         try {
-            const { codigo } = req.params;
+            const { id } = req.params;
 
             const categoriaDeletada = await CategoriaModel.delete({
                 where: {
-                    codigo: Number(codigo) 
+                    id: Number(id) 
                 }
             });
 
